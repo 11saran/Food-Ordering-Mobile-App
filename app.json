@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "food_Ordering_Mobile_App",
-    "slug": "food_Ordering_Mobile_App",
+    "name": "FoodieExpress",
+    "slug": "FoodieExpress",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "foodorderingmobileapp",
+    "icon": "./assets/images/icon01.png",
+    "scheme": "FoodieExpress",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

@@ -20,12 +20,14 @@ FoodieExpress is a premium, modern food ordering mobile application built with *
 <div align="center">
   <img src="./screenshots/SignUp.jpg" width="30%" />
   <img src="./screenshots/Login.jpg" width="30%" />
+  <img src="./screenshots/Home.jpg" width="30%" />
 </div>
 
 ### 🌙 Dark Mode
 <div align="center">
   <img src="./screenshots/SignUp-DarkMode.jpg" width="30%" />
   <img src="./screenshots/Login-DarkMode.jpg" width="30%" />
+  <img src="./screenshots/Home-DarkMode.jpg" width="30%" />
 </div>
 
 

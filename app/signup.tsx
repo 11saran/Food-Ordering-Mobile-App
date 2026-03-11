@@ -12,7 +12,6 @@ import {
     ScrollView,
     SafeAreaView,
     useColorScheme,
-    Image,
     ImageBackground,
     Dimensions
 } from 'react-native';
@@ -24,31 +23,46 @@ import { useRouter } from 'expo-router';
 
 const { height, width } = Dimensions.get('window');
 
-export default function LoginScreen() {
+export default function SignupScreen() {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { login } = useAuth();
+    const { register } = useAuth();
     const { showToast } = useToast();
-    const router = useRouter();
     const colorScheme = useColorScheme();
     const isDark = colorScheme === 'dark';
     const colors = isDark ? Colors.dark : Colors.light;
+    const router = useRouter();
 
-    const handleLogin = async () => {
-        if (!email || !password) {
-            Alert.alert('Error', 'Please fill in all fields');
+    const handleSignup = async () => {
+        if (!name || !email || !password || !confirmPassword) {
+            showToast({ message: 'Please fill in all fields', type: 'error' });
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            showToast({ message: 'Passwords do not match', type: 'error' });
+            return;
+        }
+
+        if (password.length < 6) {
+            showToast({ message: 'Password must be at least 6 characters', type: 'error' });
             return;
         }
 
         setIsLoading(true);
         try {
-            await login(email, password);
-            showToast({ message: 'Login successful!', type: 'success' });
+            await register(email, password, name);
+            showToast({ message: 'Account created successfully!', type: 'success' });
+            // Since useProtectedRoute will handle redirection based on auth state, 
+            // we don't necessarily need to manual navigate, but it's good practice.
+            router.replace('/(tabs)');
         } catch (error: any) {
             showToast({ 
-                message: error.message || 'Invalid email or password', 
+                message: error.message || 'Failed to create account', 
                 type: 'error' 
             });
         } finally {
@@ -76,17 +90,34 @@ export default function LoginScreen() {
                             bounces={false}
                         >
                             <View style={[styles.card, { backgroundColor: isDark ? colors.background : colors.card }]}>
-                                {/* Logo & Welcome */}
+                                {/* Header Section */}
                                 <View style={styles.headerSection}>
                                     <View style={[styles.logoContainer, { backgroundColor: colors.primary }]}>
-                                        <MaterialIcons name="restaurant" size={36} color="white" />
+                                        <MaterialCommunityIcons name="account-plus" size={36} color="white" />
                                     </View>
-                                    <Text style={[styles.welcomeTitle, { color: colors.text }]}>Welcome back</Text>
-                                    <Text style={[styles.welcomeSubtitle, { color: colors.textSecondary }]}>FoodieExpress</Text>
+                                    <Text style={[styles.welcomeTitle, { color: colors.text }]}>Create Account</Text>
+                                    <Text style={[styles.welcomeSubtitle, { color: colors.textSecondary }]}>Join FoodieExpress today</Text>
                                 </View>
 
                                 {/* Form */}
                                 <View style={styles.formSection}>
+                                    {/* Name Field */}
+                                    <View style={styles.inputGroup}>
+                                        <Text style={[styles.label, { color: colors.text }]}>Full Name</Text>
+                                        <View style={[styles.inputWrapper, { borderColor: colors.border }]}>
+                                            <TextInput
+                                                style={[styles.input, { color: colors.text }]}
+                                                placeholder="John Doe"
+                                                placeholderTextColor="#94a3b8"
+                                                value={name}
+                                                onChangeText={setName}
+                                                autoCapitalize="words"
+                                            />
+                                            <MaterialCommunityIcons name="account-outline" size={20} color="#94a3b8" />
+                                        </View>
+                                    </View>
+
+                                    {/* Email Field */}
                                     <View style={styles.inputGroup}>
                                         <Text style={[styles.label, { color: colors.text }]}>Email Address</Text>
                                         <View style={[styles.inputWrapper, { borderColor: colors.border }]}>
@@ -103,12 +134,13 @@ export default function LoginScreen() {
                                         </View>
                                     </View>
 
+                                    {/* Password Field */}
                                     <View style={styles.inputGroup}>
                                         <Text style={[styles.label, { color: colors.text }]}>Password</Text>
                                         <View style={[styles.inputWrapper, { borderColor: colors.border }]}>
                                             <TextInput
                                                 style={[styles.input, { color: colors.text }]}
-                                                placeholder="Enter your password"
+                                                placeholder="Enter your Password"
                                                 placeholderTextColor="#94a3b8"
                                                 value={password}
                                                 onChangeText={setPassword}
@@ -125,52 +157,52 @@ export default function LoginScreen() {
                                         </View>
                                     </View>
 
-                                    <TouchableOpacity style={styles.forgotPassword}>
-                                        <Text style={[styles.forgotPasswordText, { color: colors.primary }]}>Forgot Password?</Text>
-                                    </TouchableOpacity>
+                                    {/* Confirm Password Field */}
+                                    <View style={styles.inputGroup}>
+                                        <Text style={[styles.label, { color: colors.text }]}>Confirm Password</Text>
+                                        <View style={[styles.inputWrapper, { borderColor: colors.border }]}>
+                                            <TextInput
+                                                style={[styles.input, { color: colors.text }]}
+                                                placeholder="Repeat your password"
+                                                placeholderTextColor="#94a3b8"
+                                                value={confirmPassword}
+                                                onChangeText={setConfirmPassword}
+                                                secureTextEntry={!isPasswordVisible}
+                                                autoCapitalize="none"
+                                            />
+                                            <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+                                                <MaterialCommunityIcons 
+                                                    name={isPasswordVisible ? "eye-outline" : "eye-off-outline"} 
+                                                    size={20} 
+                                                    color="#94a3b8" 
+                                                />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
                                 </View>
 
-                                {/* Login Button */}
+                                {/* Signup Button */}
                                 <TouchableOpacity 
-                                    style={[styles.loginButton, { backgroundColor: colors.primary }]} 
-                                    onPress={handleLogin}
+                                    style={[styles.signupButton, { backgroundColor: colors.primary }]} 
+                                    onPress={handleSignup}
                                     activeOpacity={0.8}
                                     disabled={isLoading}
                                 >
                                     {isLoading ? (
                                         <ActivityIndicator color="white" />
                                     ) : (
-                                        <Text style={styles.loginButtonText}>Login</Text>
+                                        <Text style={styles.signupButtonText}>Create Account</Text>
                                     )}
                                 </TouchableOpacity>
-
-                                {/* Divider */}
-                                {/* <View style={styles.dividerRow}>
-                                    <View style={[styles.dividerLine, { backgroundColor: colors.border }]} />
-                                    <Text style={styles.dividerText}>or continue with</Text>
-                                    <View style={[styles.dividerLine, { backgroundColor: colors.border }]} />
-                                </View> */}
-
-                                {/* Social Login Grid */}
-                                {/* <View style={styles.socialGrid}>
-                                    <TouchableOpacity style={[styles.socialButton, { borderColor: colors.border }]}>
-                                        <Ionicons name="logo-google" size={20} color={isDark ? "white" : "#DB4437"} />
-                                        <Text style={[styles.socialText, { color: colors.text }]}>Google</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={[styles.socialButton, { borderColor: colors.border }]}>
-                                        <MaterialCommunityIcons name="apple" size={20} color={isDark ? "white" : "black"} />
-                                        <Text style={[styles.socialText, { color: colors.text }]}>Apple</Text>
-                                    </TouchableOpacity>
-                                </View> */}
 
                                 {/* Footer */}
                                 <View style={styles.footer}>
                                     <Text style={[styles.footerText, { color: colors.textSecondary }]}>
-                                        Don't have an account? {' '}
+                                        Already have an account? {' '}
                                         <Text 
-                                            style={[styles.signUpText, { color: colors.primary }]}
-                                            onPress={() => router.push('/signup')}
-                                        >Sign Up</Text>
+                                            style={[styles.loginLinkText, { color: colors.primary }]}
+                                            onPress={() => router.back()}
+                                        >Login</Text>
                                     </Text>
                                 </View>
                             </View>
@@ -181,11 +213,6 @@ export default function LoginScreen() {
         </View>
     );
 }
-
-// Reuse some Material Icons
-const MaterialIcons = ({ name, size, color }: { name: any, size: number, color: string }) => (
-    <MaterialCommunityIcons name={name === 'restaurant' ? 'silverware-fork-knife' : name} size={size} color={color} />
-);
 
 const styles = StyleSheet.create({
     container: {
@@ -247,7 +274,7 @@ const styles = StyleSheet.create({
         marginTop: 4,
     },
     formSection: {
-        gap: 20,
+        gap: 16,
     },
     inputGroup: {
         gap: 8,
@@ -269,14 +296,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500',
     },
-    forgotPassword: {
-        alignSelf: 'flex-end',
-    },
-    forgotPasswordText: {
-        fontSize: 14,
-        fontWeight: '700',
-    },
-    loginButton: {
+    signupButton: {
         height: 60,
         borderRadius: 16,
         justifyContent: 'center',
@@ -288,47 +308,10 @@ const styles = StyleSheet.create({
         shadowRadius: 12,
         elevation: 6,
     },
-    loginButtonText: {
+    signupButtonText: {
         color: 'white',
         fontSize: 18,
         fontWeight: '800',
-    },
-    dividerRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 24,
-    },
-    dividerLine: {
-        flex: 1,
-        height: 1,
-    },
-    dividerText: {
-        marginHorizontal: 16,
-        color: '#94a3b8',
-        fontSize: 14,
-        fontWeight: '500',
-    },
-    socialGrid: {
-        flexDirection: 'row',
-        gap: 12,
-    },
-    socialButton: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 54,
-        borderRadius: 14,
-        borderWidth: 1.5,
-        gap: 10,
-    },
-    socialIcon: {
-        width: 20,
-        height: 20,
-    },
-    socialText: {
-        fontSize: 14,
-        fontWeight: '700',
     },
     footer: {
         marginTop: 32,
@@ -338,7 +321,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '500',
     },
-    signUpText: {
+    loginLinkText: {
         fontWeight: '800',
     },
 });

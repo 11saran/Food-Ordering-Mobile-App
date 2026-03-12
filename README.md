@@ -1,22 +1,22 @@
-# FoodieExpress 🍔
+# FoodieExpress 
 
 FoodieExpress is a premium, modern food ordering mobile application built with **React Native** and **Expo**. It offers a seamless experience for browsing categories, managing a cart, and placing orders with ease.
 
 ---
 
-## ✨ Features
+## Features
 
-- 🍕 **Browse Categories**: Filter through your favorite food types (Pizza, Burgers, Sushi, and more).
-- 🛒 **Intuitive Cart**: Effortlessly add items, adjust quantities, and manage your order.
-- 🔐 **Authentication**: Secure login and signup powered by Firebase.
-- 📱 **Smooth Transitions**: Powered by React Native Reanimated for a premium feel.
-- 🌗 **Responsive Design**: Full support for iOS and Android with Light and Dark mode.
+- **Browse Categories**: Filter through your favorite food types (Pizza, Burgers, Sushi, and more).
+- **Intuitive Cart**: Effortlessly add items, adjust quantities, and manage your order.
+- **Authentication**: Secure login and signup powered by Firebase.
+- **Smooth Transitions**: Powered by React Native Reanimated for a premium feel.
+- **Responsive Design**: Full support for iOS and Android with Light and Dark mode.
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
-### 🌙 Dark Mode
+### Dark Mode
 <div align="center">
   <img src="./screenshots/SignUp-DarkMode.jpg" width="30%" />
   <img src="./screenshots/Login-DarkMode.jpg" width="30%" />
@@ -31,7 +31,7 @@ FoodieExpress is a premium, modern food ordering mobile application built with *
   <img src="./screenshots/Profile-DarkMode.jpg" width="30%" />
 </div>
 
-### ☀️ Light Mode
+### Light Mode
 <div align="center">
   <img src="./screenshots/SignUp.jpg" width="30%" />
   <img src="./screenshots/Login.jpg" width="30%" />
@@ -51,7 +51,7 @@ FoodieExpress is a premium, modern food ordering mobile application built with *
 
 ---
 
-## 🛠️ Tech Stack & Libraries
+## Tech Stack & Libraries
 
 This project leverages industry-standard libraries for performance and scalability:
 
@@ -66,7 +66,7 @@ This project leverages industry-standard libraries for performance and scalabili
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 Follow these steps to set up and run the project locally.
 
@@ -97,4 +97,4 @@ npx expo start
 
 ---
 
-<p align="center">Made with ❤️ by Saran</p>
+<p align="center">Made with by Saran</p>

@@ -21,6 +21,14 @@ FoodieExpress is a premium, modern food ordering mobile application built with *
   <img src="./screenshots/SignUp.jpg" width="30%" />
   <img src="./screenshots/Login.jpg" width="30%" />
   <img src="./screenshots/Home.jpg" width="30%" />
+  <img src="./screenshots/Cart.jpg" width="30%" />
+  <img src="./screenshots/Categories.jpg" width="30%" />
+  <img src="./screenshots/FoodScreen.jpg" width="30%" />
+  <img src="./screenshots/Cart_Screen.jpg" width="30%" />
+  <img src="./screenshots/Orders.jpg" width="30%" />
+  <img src="./screenshots/Progress.jpg" width="30%" />
+  <img src="./screenshots/Completed.jpg" width="30%" />
+  <img src="./screenshots/Profile.jpg" width="30%" />
 </div>
 
 ### 🌙 Dark Mode
@@ -28,6 +36,14 @@ FoodieExpress is a premium, modern food ordering mobile application built with *
   <img src="./screenshots/SignUp-DarkMode.jpg" width="30%" />
   <img src="./screenshots/Login-DarkMode.jpg" width="30%" />
   <img src="./screenshots/Home-DarkMode.jpg" width="30%" />
+   <img src="./screenshots/CartScreen-DarMode.jpg" width="30%" />
+  <img src="./screenshots/Categories-DarkMode.jpg" width="30%" />
+  <img src="./screenshots/FoodScreen-DarkMode.jpg" width="30%" />
+   <img src="./screenshots/CartScreen_DarMode.jpg" width="30%" />
+  <img src="./screenshots/Orders-DarkMode.jpg" width="30%" />
+  <img src="./screenshots/Progress-DarkMode.jpg" width="30%" />
+  <img src="./screenshots/Completed-DarkMode.jpg" width="30%" />
+  <img src="./screenshots/Profile-DarkMode.jpg" width="30%" />
 </div>
 
 

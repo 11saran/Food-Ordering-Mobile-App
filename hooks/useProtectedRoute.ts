@@ -12,7 +12,7 @@ export function useProtectedRoute() {
     const isNavigationReady = !!navigationState?.key;
     if (!isNavigationReady || loading) return;
 
-    const inAuthGroup = segments[0] === 'login';
+    const inAuthGroup = segments[0] === 'login' || segments[0] === 'signup';
     const segment0 = segments[0] as string;
     const isAtRoot = (segments.length as number) === 0 || segment0 === 'index' || !segment0;
 
